@@ -189,8 +189,9 @@ if response.status_code == 200:
                 # 发送带有 token 和 orderId 的 POST 请求
                 create_response = requests.post(create_url, headers=create_headers, json=create_payload)
                 if create_response.status_code == 200:
-                    send('京东返费登记', f"请求成功，请等待充值！")
-                    print("请求成功，请等待充值！")
+                    msg = create_response.json()['msg']
+                    send('京东返费登记', msg)
+                    print(msg)
                 else:
                     send('京东返费登记', f"请求失败，状态码：{create_response.status_code}")
                     print("请求失败", create_response.status_code)
